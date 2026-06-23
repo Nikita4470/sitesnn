@@ -17,7 +17,7 @@ export function HomePage() {
           </div>
           <div className={styles.heroCopy}>
             <span className={styles.heroEyebrow}>DIGITAL SOLUTIONS · 2026</span>
-            <h1>Автоматизированные <em>сайты и приложения</em> под задачи бизнеса</h1>
+            <h1>Автоматизированные сайты и приложения под задачи бизнеса</h1>
             <p>Создаём цифровые системы, которые помогают получать заявки, продавать онлайн и снижать ручную работу.</p>
             <div className={styles.heroActions}>
               <a className="button button--lime" href="#contact">Получить консультацию <span>↗</span></a>

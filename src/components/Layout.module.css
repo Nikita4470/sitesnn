@@ -2,10 +2,10 @@
 .header { position: absolute; z-index: 10; top: 0; left: 0; width: 100%; color: white; border-bottom: 1px solid rgba(255,255,255,.14); }
 .headerInner { height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
 .nav { display: flex; align-items: center; gap: 22px; margin-left: auto; }
-.nav a { position: relative; padding: 30px 0; font-size: 11px; font-weight: 700; color: rgba(255,255,255,.72); }
+.nav a { position: relative; padding: 30px 0; font-size: 17px; font-weight: 700; color: rgba(255,255,255,.72); }
 .nav a:hover, .nav a[aria-current='page'] { color: var(--lime); }
 .nav a[aria-current='page']::after { content: ''; position: absolute; height: 2px; left: 0; right: 0; bottom: 0; background: var(--lime); }
-.headerCta { padding: 11px 14px; border: 1px solid rgba(255,255,255,.3); border-radius: 8px; font-size: 11px; font-weight: 800; }
+.headerCta { padding: 11px 14px; border: 1px solid rgba(255,255,255,.3); border-radius: 8px; font-size: 17px; font-weight: 800; }
 .headerCta span { color: var(--lime); margin-left: 9px; }
 .menuButton { display: none; width: 44px; height: 44px; border: 1px solid rgba(255,255,255,.28); background: transparent; border-radius: 8px; }
 .menuButton span { display: block; width: 18px; height: 1px; background: white; margin: 5px auto; }
