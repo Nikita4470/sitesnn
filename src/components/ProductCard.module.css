@@ -1,0 +1,8 @@
+.card { min-height: 330px; padding: 26px; display: flex; flex-direction: column; border-radius: var(--radius); background: var(--cyan); color: var(--ink-deep); transition: transform .3s ease, background .3s ease; overflow: hidden; position: relative; }
+.card:nth-child(2n) { background: var(--lime); }
+.card::after { content: ''; position: absolute; width: 150px; height: 150px; right: -80px; bottom: -80px; border: 1px solid rgba(23,51,75,.28); border-radius: 50%; box-shadow: 0 0 0 28px rgba(23,51,75,.05), 0 0 0 52px rgba(23,51,75,.04); }
+.card:hover { transform: translateY(-8px); background: var(--white); }
+.top { display: flex; justify-content: space-between; font: 600 9px 'Roboto Mono', monospace; text-transform: uppercase; letter-spacing: .1em; }
+.card h3 { max-width: 310px; margin: 45px 0 14px; font-size: 30px; line-height: 1.02; letter-spacing: -.04em; }
+.card p { max-width: 300px; color: rgba(23,51,75,.72); font-size: 13px; line-height: 1.6; }
+.card a { z-index: 1; margin-top: auto; padding-top: 20px; border-top: 1px solid rgba(23,51,75,.24); display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; }
