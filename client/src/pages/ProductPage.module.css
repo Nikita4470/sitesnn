@@ -1,0 +1,480 @@
+.hero {
+  min-height: 790px;
+  padding: 150px 0 70px;
+  background: var(--ink);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 78% 45%, rgba(31,193,195,.18), transparent 33%), linear-gradient(rgba(105,218,221,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(105,218,221,.08) 1px, transparent 1px);
+  background-size: auto, 100px 100px, 100px 100px;
+}
+
+.heroInner {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 65px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.heroCopy {
+  max-width: 700px;
+}
+
+.eyebrow {
+  color: var(--lime);
+  font: 600 10px 'Roboto Mono', monospace;
+  letter-spacing: .14em;
+}
+
+.heroCopy h1 {
+  margin: 28px 0;
+  letter-spacing: -.065em;
+  max-width: 880px;
+  margin: 28px 0 26px;
+  font-size: clamp(44px, 6.5vw, 92px); /* Чуть уменьшили шаг, чтобы длинное слово "Автоматизированные" не ломало строку */
+  line-height: 1.05; /* Слегка увеличили для читаемости длинных русских слов */
+  font-weight: 800; /* Тяжелый, премиальный вес */
+  text-wrap: balance;
+  
+  /* Основной текст: дорогой матовый белый с легким объемом */
+  color: #f6f9fc;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+}
+
+.heroCopy p {
+  max-width: 650px;
+  margin-bottom: 34px;
+  color: rgba(255,255,255,.68);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.heroVisual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+}
+
+.visualWindow {
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 470px;
+  padding: 26px;
+  border: 1px solid rgba(105,218,221,.45);
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(31,193,195,.18), rgba(11,34,53,.55));
+  box-shadow: 0 30px 80px rgba(3,25,42,.5), inset 0 0 60px rgba(31,193,195,.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.visualWindow::before,
+.visualWindow::after {
+  content: '';
+  position: absolute;
+  border: 1px solid rgba(185,255,43,.24);
+  border-radius: 50%;
+}
+
+.visualWindow::before {
+  width: 330px;
+  height: 330px;
+  right: -100px;
+  bottom: -100px;
+  box-shadow: 0 0 0 55px rgba(185,255,43,.025), 0 0 0 110px rgba(31,193,195,.03);
+}
+
+.visualWindow::after {
+  width: 70px;
+  height: 70px;
+  background: var(--lime);
+  right: 70px;
+  bottom: 70px;
+  box-shadow: 0 0 40px rgba(185,255,43,.44);
+}
+
+.visualTop {
+  font: 500 8px 'Roboto Mono', monospace;
+  letter-spacing: .12em;
+  color: var(--cyan-soft);
+}
+
+.visualWindow strong {
+  display: block;
+  margin-top: 30px;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,.35);
+  font-size: 150px;
+  line-height: 1;
+}
+
+.visualWindow p {
+  position: absolute;
+  z-index: 2;
+  left: 26px;
+  right: 26px;
+  bottom: 24px;
+  margin: 0;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.flowLine {
+  position: absolute;
+  width: 66%;
+  height: 1px;
+  left: 13%;
+  top: 57%;
+  background: var(--cyan);
+  transform: rotate(-25deg);
+}
+
+.flowLine i {
+  position: absolute;
+  top: -5px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 12px var(--lime);
+}
+
+.flowLine i:nth-child(2) {
+  left: 33%;
+}
+
+.flowLine i:nth-child(3) {
+  left: 66%;
+}
+
+.flowLine i:nth-child(4) {
+  right: 0;
+}
+
+.breadcrumb {
+  grid-column: 1/-1;
+  display: flex;
+  gap: 12px;
+  color: rgba(255,255,255,.48);
+  font: 500 9px 'Roboto Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.breadcrumb b {
+  color: var(--cyan-soft);
+}
+
+.audience {
+  background: var(--paper);
+}
+
+.chipGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.chipGrid div {
+  min-height: 90px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background .25s, transform .25s;
+}
+
+.chipGrid div:hover {
+  transform: translateY(-4px);
+  background: var(--lime);
+}
+
+.chipGrid span {
+  color: var(--cyan);
+  font: 500 8px 'Roboto Mono', monospace;
+}
+
+.tasks {
+  background: var(--ink-deep);
+}
+
+.tasksInner {
+  position: relative;
+}
+
+.tasksInner::after {
+  content: '';
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  right: -110px;
+  top: -60px;
+  border: 1px solid rgba(105,218,221,.2);
+  border-radius: 50%;
+  box-shadow: 0 0 0 50px rgba(105,218,221,.025);
+}
+
+.taskGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+  position: relative;
+  z-index: 1;
+}
+
+.taskGrid article {
+  min-height: 150px;
+  padding: 20px;
+  border: 1px solid rgba(105,218,221,.3);
+  border-radius: 11px;
+  background: rgba(63,88,115,.22);
+}
+
+.taskGrid span {
+  color: var(--lime);
+  font: 600 9px 'Roboto Mono', monospace;
+}
+
+.taskGrid h3 {
+  margin: 45px 0 0;
+  color: white;
+  font-size: 17px;
+  line-height: 1.2;
+}
+
+.features {
+  background: var(--paper);
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.featureGrid article {
+  padding: 27px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+}
+
+.featureHead {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 12px;
+  align-items: start;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.featureHead span {
+  color: var(--cyan);
+  font: 600 9px 'Roboto Mono', monospace;
+}
+
+.featureHead h3 {
+  margin: 0;
+  font-size: 24px;
+  letter-spacing: -.04em;
+}
+
+.featureGrid ul {
+  columns: 2;
+  gap: 30px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.featureGrid li {
+  break-inside: avoid;
+  position: relative;
+  padding: 7px 0 7px 13px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.featureGrid li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 13px;
+  width: 5px;
+  height: 5px;
+  background: var(--cyan);
+  border-radius: 50%;
+}
+
+.featureAccent {
+  background: var(--lime) !important;
+}
+
+.featureAccent .featureHead {
+  border-color: rgba(23,51,75,.2);
+}
+
+.featureAccent .featureHead span,
+.featureAccent li::before {
+  color: var(--ink);
+  background: var(--ink);
+}
+
+.featureAccent li {
+  color: rgba(23,51,75,.75);
+}
+
+.outcome {
+  padding: 105px 0;
+  background: var(--ink);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.outcome::after {
+  content: '';
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border: 1px solid rgba(105,218,221,.25);
+  border-radius: 50%;
+  right: -100px;
+  top: -100px;
+  box-shadow: 0 0 0 75px rgba(105,218,221,.025);
+}
+
+.outcomeInner {
+  display: grid;
+  grid-template-columns: .25fr .75fr 1fr;
+  gap: 45px;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+
+.outcomeLabel {
+  color: var(--lime);
+  font: 600 9px 'Roboto Mono', monospace;
+}
+
+.outcome h2 {
+  font-size: clamp(43px, 5vw, 70px);
+  line-height: .94;
+  letter-spacing: -.06em;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+}
+
+.outcome p {
+  color: rgba(255,255,255,.65);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.outcome a {
+  grid-column: 3;
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--lime);
+  color: var(--lime);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+@media (max-width: 900px) {
+  .heroInner {
+    grid-template-columns: 1fr;
+  }
+
+  .heroVisual {
+    min-height: auto;
+  }
+
+  .visualWindow {
+    max-width: 600px;
+    aspect-ratio: 1.5;
+  }
+
+  .chipGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .taskGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .outcomeInner {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .outcomeInner > div {
+    grid-column: 2;
+  }
+
+  .outcome a {
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 620px) {
+  .hero {
+    padding-top: 110px;
+  }
+
+  .heroCopy h1 {
+    font-size: 36px;
+    line-height: .96;
+  }
+
+  .visualWindow {
+    aspect-ratio: 1;
+  }
+
+  .visualWindow strong {
+    font-size: 110px;
+  }
+
+  .chipGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .chipGrid div {
+    font-size: 11px;
+  }
+
+  .taskGrid,
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .featureGrid ul {
+    columns: 1;
+  }
+
+  .outcomeInner {
+    grid-template-columns: 1fr;
+  }
+
+  .outcomeInner > *,
+  .outcomeInner > div,
+  .outcome a {
+    grid-column: 1;
+  }
+}
