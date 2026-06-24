@@ -26,8 +26,8 @@ export function HomePage() {
           </div>
           <div className={styles.heroMeta}>
             <div><strong>4</strong><span>ключевых<br />направления</span></div>
-            <div><strong>360°</strong><span>от идеи<br />до запуска</span></div>
-            <div><strong>01</strong><span>единая<br />экосистема</span></div>
+            <div><strong>Сутки</strong><span>от идеи<br />до разработки</span></div>
+            <div><strong>Проектируем</strong><span>под ваши<br />задачи</span></div>
           </div>
         </div>
       </section>
