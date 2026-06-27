@@ -11,7 +11,7 @@ export function HomePage() {
       <section className={styles.hero}>
         <div className={`container ${styles.heroInner}`}>
           <div className={styles.heroArt} aria-hidden="true">
-            <img src="/assets/systems-hero.png" alt="" />
+            <img src="/assets/systems-hero.png" alt="Цифровая система SITESNN для автоматизации бизнеса" />
             <span className={styles.artLabel}>SYSTEMS / WEB / MOBILE</span>
             <span className={styles.artStatus}><i /> Система online</span>
           </div>

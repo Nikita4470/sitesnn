@@ -21,4 +21,6 @@
 .linkLight:hover {
   color: #0284c7;
 }
+.error { margin: 0; color: #b42318; font-size: 13px; line-height: 1.5; }
+.error a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 @media (max-width: 560px) { .form { grid-template-columns: 1fr; padding: 22px; } .form label, .full { grid-column: 1; } .submitRow { align-items: stretch; flex-direction: column; } }
