@@ -4,6 +4,7 @@ import { Layout } from './components/Layout'
 import { HomePage } from './pages/HomePage'
 import { ProductPage } from './pages/ProductPage'
 import { productPages } from './data/content'
+import { PolicyPage } from './pages/PolicyPage'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -17,6 +18,7 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/policy" element={<PolicyPage />} />
         {productPages.map((page) => (
           <Route key={page.slug} path={`/${page.slug}`} element={<ProductPage data={page} />} />
         ))}

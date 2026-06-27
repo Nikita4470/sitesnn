@@ -11,18 +11,28 @@ export function Layout({ children }: PropsWithChildren) {
 
   return (
     <div className={styles.siteShell}>
-      <header className={styles.header}>
-        <div className={`container ${styles.headerInner}`}>
-          <Logo />
-          <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ''}`} aria-label="Главная навигация">
-            <NavLink to="/" end>Главная</NavLink>
-            {productPages.map((page) => <NavLink key={page.slug} to={`/${page.slug}`}>{page.navTitle}</NavLink>)}
-          </nav>
-          <a className={styles.headerCta} href="#contact">Обсудить проект <span>↗</span></a>
-          <button className={styles.menuButton} type="button" onClick={() => setMenuOpen((v) => !v)} aria-expanded={menuOpen} aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}>
-            <span /><span />
-          </button>
-        </div>
+    <header className={styles.header}>
+      <div className={`container ${styles.headerInner}`}>
+        <Logo />
+        
+        {/* ЧИСТЫЙ CSS-МОДУЛЬ ОВЕРЛЕЙ: рендерится только при открытом меню */}
+        {menuOpen && <div className={styles.navOverlay} onClick={() => setMenuOpen(false)} />}
+
+        <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ''}`} aria-label="Главная навигация">
+          {/* Добавили закрытие меню при клике на саму ссылку, чтобы оно не висело после перехода */}
+          <NavLink to="/" end onClick={() => setMenuOpen(false)}>Главная</NavLink>
+          {productPages.map((page) => (
+            <NavLink key={page.slug} to={`/${page.slug}`} onClick={() => setMenuOpen(false)}>
+              {page.navTitle}
+            </NavLink>
+          ))}
+        </nav>
+        
+        <a className={styles.headerCta} href="#contact">Обсудить проект <span>↗</span></a>
+        <button className={styles.menuButton} type="button" onClick={() => setMenuOpen((v) => !v)} aria-expanded={menuOpen} aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}>
+          <span /><span />
+        </button>
+    </div>
       </header>
       <main>{children}</main>
       <footer className={styles.footer}>
@@ -36,7 +46,14 @@ export function Layout({ children }: PropsWithChildren) {
             <span>Новый проект</span>
             <a href="mailto:hello@sitesnn.ru">hello@sitesnn.ru</a>
             <a href="#contact">Оставить заявку ↗</a>
-            <a href="#policy">Политика конфиденциальности</a>
+            <NavLink
+              to="/policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footerPolicyLink"
+            >
+              Политика конфиденциальности
+            </NavLink>
           </div>
         </div>
         <div className={`container ${styles.footerBottom}`}><span>© {new Date().getFullYear()} SITESNN</span><span>Сайты · Приложения · Автоматизация</span></div>

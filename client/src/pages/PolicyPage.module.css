@@ -1,0 +1,120 @@
+.policyContainer {
+  min-height: 790px;
+  padding: 180px 0 70px;
+  background: var(--ink);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Фоновая сетка из твоего макета */
+.policyContainer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 78% 45%, rgba(31,193,195,.18), transparent 33%), linear-gradient(rgba(105,218,221,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(105,218,221,.08) 1px, transparent 1px);
+  background-size: auto, 100px 100px, 100px 100px;
+}
+
+.policyInner {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Главный заголовок — массивный, жирный и с объёмной тенью */
+.policyTitle {
+  margin: 28px 0 26px;
+  font-size: clamp(36px, 6.5vw, 64px);
+  line-height: 1.1;
+  font-weight: 800; /* Максимальная толщина для объёма */
+  letter-spacing: -.04em;
+  text-wrap: balance;
+  color: #f6f9fc;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+}
+
+.policySubtitle {
+  max-width: 650px;
+  margin-bottom: 54px;
+  color: rgba(255,255,255,.68);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.policyGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Карточка-раздел */
+.policySection {
+  padding: 28px;
+  border: 1px solid rgba(105,218,221,.3);
+  border-radius: 11px;
+  background: rgba(63,88,115,.22);
+  box-shadow: 0 15px 40px rgba(3,25,42,.3); /* Добавили мягкую тень под карточки для объёма */
+}
+
+/* Заголовки разделов (01 // Общие положения) */
+.policySection h2 {
+  margin: 0 0 18px 0;
+  color: var(--lime);
+  /* Сделали шрифт 700 (Bold) вместо 600 для сочности и объёма */
+  font: 700 12px 'Roboto Mono', monospace; 
+  letter-spacing: .1em; /* Раздвинули буквы, чтобы жирный шрифт читался дорого */
+  text-transform: uppercase;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Микро-тень для букв */
+}
+
+/* Текст пунктов */
+.policySection p {
+  color: rgba(255,255,255,.85);
+  font-size: 14px;
+  line-height: 1.65;
+  margin: 0 0 14px 0;
+}
+
+.policySection p:last-child {
+  margin-bottom: 0;
+}
+
+/* Списки с перечислениями (Имя, Телефон...) */
+.policySection ul {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.policySection li {
+  position: relative;
+  padding-left: 22px;
+  color: rgba(255,255,255,.9);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Объёмный и чёткий маркер в стиле кода */
+.policySection li::before {
+  content: '>';
+  position: absolute;
+  left: 0;
+  color: var(--cyan-soft);
+  font: 700 13px 'Roboto Mono', monospace; /* Сделали стрелочку массивнее */
+}
+
+@media (max-width: 620px) {
+  .policyContainer {
+    padding-top: 110px;
+  }
+  .policyTitle {
+    font-size: 36px;
+    line-height: .96;
+  }
+}

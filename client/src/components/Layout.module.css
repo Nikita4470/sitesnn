@@ -17,19 +17,59 @@
 .footerNav a, .footerContact a { font-size: 13px; color: rgba(255,255,255,.76); }
 .footerNav a:hover, .footerContact a:hover { color: var(--lime); }
 .footerBottom { padding: 20px 0; display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.4); font: 500 9px 'Roboto Mono', monospace; text-transform: uppercase; letter-spacing: .1em; }
+.footerPolicyLink { position: relative; padding: 30px 0; font-size: 17px; font-weight: 700; color: rgba(255,255,255,.72); }
+.footerPolicyLink:hover, .nav a[aria-current='page'] { color: var(--lime); }
+.footerPolicyLink[aria-current='page']::after { content: ''; position: absolute; height: 2px; left: 0; right: 0; bottom: 0; background: var(--lime); }
+
+.navOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* Мягкое темное затемнение */
+  backdrop-filter: blur(4px);    /* Трендовое размытие фона */
+  z-index: 40;                   /* Чуть ниже самого меню, но выше контента сайта */
+}
 
 @media (max-width: 1050px) {
-  .nav { position: fixed; inset: 82px 0 auto; padding: 26px; background: var(--ink-deep); display: none; flex-direction: column; align-items: stretch; gap: 0; box-shadow: 0 20px 40px rgba(0,0,0,.3); }
-  .navOpen { display: flex; }
+  .nav { 
+    position: fixed; 
+    inset: 82px 0 auto; 
+    padding: 26px; 
+    background: var(--ink-deep); 
+    display: none; 
+    flex-direction: column; 
+    align-items: stretch; 
+    gap: 0; 
+    box-shadow: 0 20px 40px rgba(0,0,0,.3); 
+    /* 2. Поднимаем меню выше подложки */
+    z-index: 50; 
+  }
+
+  .navOpen { 
+    display: flex; 
+  }
+
   .nav a { padding: 13px 0; font-size: 14px; }
   .nav a[aria-current='page']::after { display: none; }
-  .menuButton { display: block; }
+  .footerPolicyLink { padding: 13px 0; font-size: 14px; }
+  .footerPolicyLink[aria-current='page']::after { display: none; }
+  .menuButton { 
+    display: block; 
+    position: relative;
+    z-index: 50;
+  }
   .headerCta { margin-left: auto; }
 }
+
 @media (max-width: 700px) {
   .headerInner { height: 70px; }
-  .nav { top: 70px; }
+  .nav { top: 70px; } 
   .headerCta { display: none; }
   .footerTop { grid-template-columns: 1fr; gap: 36px; }
   .footerBottom { flex-direction: column; gap: 8px; }
+}
+
+@media (min-width: 1051px) {
+  .navOverlay {
+    display: none;
+  }
 }

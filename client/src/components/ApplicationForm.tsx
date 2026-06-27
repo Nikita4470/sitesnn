@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import styles from './ApplicationForm.module.css'
+import { NavLink } from 'react-router-dom'
 
 type Props = { compact?: boolean }
 
@@ -25,7 +26,15 @@ export function ApplicationForm({ compact = false }: Props) {
       <label className={styles.full}><span>Комментарий</span><textarea name="comment" rows={compact ? 3 : 4} placeholder="Коротко расскажите о бизнесе и задаче" /></label>
       <div className={`${styles.full} ${styles.submitRow}`}>
         <button className="button button--lime" type="submit">Отправить заявку <span>↗</span></button>
-        <small>Нажимая кнопку, вы соглашаетесь на <a href="#policy" className={styles.linkLight}>обработку данных.</a></small>
+        <small>Нажимая кнопку, вы соглашаетесь на <NavLink
+              to="/policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.linkLight}
+            >
+              обработку данных.
+            </NavLink>
+          </small>
       </div>
     </form>
   )

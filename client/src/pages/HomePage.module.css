@@ -159,7 +159,7 @@
 
 .heroMeta span {
   color: rgba(255,255,255,.54);
-  font: 500 9px/1.4 'Roboto Mono', monospace;
+  font: 500 12px/1.4 'Roboto Mono', monospace;
   text-transform: uppercase;
 }
 
@@ -441,6 +441,13 @@
   .heroCopy {
     width: 92%;
   }
+  .heroCopy p {
+  margin-left: 7px;
+  font-size: 15px;
+  }
+  .heroEyebrow  {
+    margin-left: 10px;
+  }
   .heroMeta {
     width: 100%;
   }
@@ -482,9 +489,9 @@
     padding-bottom: 20px;
   }
   .heroCopy h1 {
-    font-size: 36px;
-    line-height: .94;
-    letter-spacing: -.06em;
+    font-size: clamp(32px, 6.5vw, 92px);
+    line-height: 1.1;
+    margin-left: 7px;
   }
   .heroCopy p {
     font-size: 14px;
