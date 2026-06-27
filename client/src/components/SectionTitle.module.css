@@ -1,5 +1,5 @@
 .title { max-width: 780px; margin-bottom: 55px; }
-.eyebrow { display: block; margin-bottom: 22px; color: var(--cyan); font: 600 10px/1 'Roboto Mono', monospace; letter-spacing: .12em; }
+.eyebrow { display: block; margin-bottom: 22px; color: var(--cyan); font: 600 12px/1 'Roboto Mono', monospace; letter-spacing: .12em; }
 .title h2 { margin: 0; font-size: clamp(36px, 5vw, 66px); line-height: .98; letter-spacing: -.055em; font-weight: 700; }
 .title p { max-width: 620px; margin: 23px 0 0; color: var(--muted); font-size: 16px; line-height: 1.7; }
 .light h2 { color: white; }
