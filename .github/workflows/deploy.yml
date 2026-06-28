@@ -34,7 +34,7 @@ jobs:
       - name: Prepare build artifacts
         run: |
           if [ -f "client/send.php" ]; then
-            cp server/send.php dist/send.php
+            cp client/send.php dist/send.php
           elif [ -f "send.php" ]; then
             cp send.php dist/send.php
           fi
