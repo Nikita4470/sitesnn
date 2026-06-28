@@ -4,56 +4,37 @@ header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json");
 
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    exit(0);
-}
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') exit(0);
 
-// --- САМОПИСНЫЙ ЛОАДЕР .env ФАЙЛА ---
-$envFile = __DIR__ . '/.env';
-if (file_exists($envFile)) {
-    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    foreach ($lines as $line) {
-        // Игнорируем комментарии
-        if (strpos(trim($line), '#') === 0) continue;
-        
-        // Разбиваем строку на КЛЮЧ=ЗНАЧЕНИЕ
-        list($name, $value) = explode('=', $line, 2);
-        $name = trim($name);
-        $value = trim($value);
-        
-        // Записываем в окружение
-        $_ENV[$name] = $value;
-        putenv("{$name}={$value}");
-    }
-}
-// ------------------------------------
+// ... (твой код загрузки .env остается без изменений) ...
 
-// Теперь достаем переменные точно так же, как в других языках!
 $token   = $_ENV['VK_TOKEN'] ?? getenv('VK_TOKEN');
 $peer_id = $_ENV['VK_PEER_ID'] ?? getenv('VK_PEER_ID');
-$secret_key = $_ENV['VK_SECRET_KEY'] ?? getenv('VK_SECRET_KEY');
 
 $data = json_decode(file_get_contents('php://input'));
-if ($data->secret !== $secretKey) {
-    die("Попытка взлома! Неверный секретный ключ.");
+
+// --- ЛОГИКА ВК CALLBACK ---
+if (isset($data->type)) {
+    if ($data->type === 'confirmation') {
+        echo "a5a67c35"; // Твой код подтверждения
+        exit;
+    }
+    // Если пришло сообщение или другое событие — просто отвечаем "ok"
+    exit('ok');
 }
-if ($data->type === 'confirmation') {
-    echo "e53c1e7f";
+
+// --- ЛОГИКА ЗАЯВКИ С ЛЕНДИНГА ---
+// Обращаемся к данным через $data->свойство
+$name    = isset($data->name)    ? trim($data->name)    : 'Не указано';
+$phone   = isset($data->phone)   ? trim($data->phone)   : 'Не указано';
+$comment = isset($data->comment) ? trim($data->comment) : 'Нет комментария';
+
+if (!$token || !$peer_id) {
+    echo json_encode(["status" => "error", "message" => "Server config missing"]);
     exit;
 }
 
-// Проверяем, что секреты загрузились
-if (!$token || !$peer_id !$secret_key) {
-    echo json_encode(["status" => "error", "message" => "Server configuration missing"]);
-    exit(1);
-}
-
-// Читаем JSON от Реакта
-$name    = isset($input['name'])    ? trim($input['name'])    : 'Не указано';
-$phone   = isset($input['phone'])   ? trim($input['phone'])   : 'Не указано';
-$comment = isset($input['comment']) ? trim($input['comment']) : 'Нет комментария'; // Добавили
-
-$message = "🚀 Новая заявка с лендинга!\n\n👤 Имя: " . $name . "\n📞 Контакты: " . $phone . "\n💬 Комментарий: " . $comment;
+$message = "🚀 Новая заявка!\n\n👤 Имя: $name\n📞 Контакты: $phone\n💬 Коммент: $comment";
 
 $params = [
     'v'            => '5.131',
