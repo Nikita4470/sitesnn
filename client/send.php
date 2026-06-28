@@ -1,4 +1,12 @@
 <?php
+$data = json_decode(file_get_contents('php://input'));
+
+// Проверяем тип события
+if ($data->type === 'confirmation') {
+    // ВАЖНО: Верни именно ту строку, которую требует ВК
+    echo "e53c1e7f"; 
+    exit;
+}
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: POST");
