@@ -1,0 +1,80 @@
+name: Deploy SITESNN Monolith
+
+on:
+  push:
+    branches:
+      - main # Скрипт сработает только при пуше в ветку main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # --- СБОРКА ФРОНТЕНДА (VITE) ---
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: './client/package-lock.json'
+
+      - name: Build Frontend
+        run: |
+          cd client
+          npm ci
+          npm run build
+        # В итоге в client/dist у нас лежат готовые файлы фронта
+
+      # --- СБОРКА БЭКЕНДА (GO) ---
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache-dependency-path: './server/go.sum'
+
+      - name: Build Go Binary
+        run: |
+          cd server
+          # Кросс-компиляция: собираем под Linux x64 (даже если пушим с Windows/Mac)
+          env GOOS=linux GOARCH=amd64 go build -o vk-bot-app main.go
+
+      # --- ДЕПЛОЙ НА VPS ---
+      - name: Deploy to VPS via SSH/SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          # Перекидываем на сервер только бинарник и готовую папку dist
+          source: "server/vk-bot-app,client/dist"
+          target: "~/apps/sitesnn-bot"
+          strip_components: 1 # Убирает папки 'server/' и 'client/' при копировании
+
+      # --- ПЕРЕЗАПУСК ПРИЛОЖЕНИЯ ---
+      - name: Restart Server Application
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd ~/apps/sitesnn-bot
+            # Выпрямляем структуру: переносим dist из client/dist в корень
+            if [ -d "client/dist" ]; then
+              rm -rf dist
+              mv client/dist ./dist
+              rm -rf client
+            fi
+            # Вытаскиваем бинарник из папки server в корень
+            if [ -f "server/vk-bot-app" ]; then
+              mv server/vk-bot-app ./vk-bot-app
+              rm -rf server
+            fi
+            # Даем права на запуск бинарника
+            chmod +x vk-bot-app
+            
+            # Перезапускаем процесс (ниже разберем, как упаковать его в systemd)
+            sudo systemctl restart sitesnn-bot || true
