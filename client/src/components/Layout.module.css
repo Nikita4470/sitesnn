@@ -35,17 +35,26 @@
     inset: 82px 0 auto; 
     padding: 26px; 
     background: var(--ink-deep); 
-    display: none; 
+    
+    /* ИЗМЕНЕНИЯ ДЛЯ ПЛАВНОСТИ */
+    display: flex; /* Всегда flex, но скрыт через прозрачность */
     flex-direction: column; 
     align-items: stretch; 
     gap: 0; 
     box-shadow: 0 20px 40px rgba(0,0,0,.3); 
-    /* 2. Поднимаем меню выше подложки */
     z-index: 50; 
+    
+    /* Анимация */
+    opacity: 0;
+    visibility: hidden; /* Чтобы нельзя было нажать на ссылки, когда меню закрыто */
+    transform: translateY(-20px); /* Немного сдвигаем вверх */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .navOpen { 
-    display: flex; 
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0); /* Возвращаем на место */
   }
 
   .nav a { padding: 13px 0; font-size: 14px; }
