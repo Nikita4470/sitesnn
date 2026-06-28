@@ -61,14 +61,13 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            # Принудительно заставляем bash не падать, если какая-то команда вернет ошибку
+            # Заставляем bash не падать из-за пустых pkill
             set +e
             
             # Переходим в рабочую папку
             cd ~/apps/sitesnn-bot || exit 1
             
             echo "1. Останавливаем старый процесс..."
-            # Убиваем старый бинарник, если он крутился
             pkill -f vk-bot-app
             sleep 2
             
@@ -87,8 +86,11 @@ jobs:
             chmod +x vk-bot-app
             
             echo "4. Запускаем Go-сервер в фоне..."
-            # nohup + disown гарантируют, что процесс останется жить после закрытия SSH
-            nohup ./vk-bot-app > server.log 2>&1 &
+            # Запуск через nohup, очистка ввода и фоновый режим
+            nohup ./vk-bot-app > server.log 2>&1 < /dev/null &
+            
+            # Ждем 1 секунду и полностью отвязываем процесс от текущей SSH сессии
+            sleep 1
             disown -h $!
             
-            echo "🚀 Бэкенд запущен!"
+            echo "🚀 Бэкенд успешно перезапущен в фоне!"
