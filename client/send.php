@@ -66,7 +66,18 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-curl_exec($ch);
-curl_close($ch);
+$response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-echo json_encode(["status" => "success", "message" => "Заявка отправлена"]);
+if ($response === false) {
+    // Ошибка самого CURL (например, нет связи с сервером ВК)
+    echo json_encode(["status" => "error", "message" => "CURL Error: " . curl_error($ch)]);
+} else {
+    $result = json_decode($response, true);
+    if (isset($result['error'])) {
+        // Ошибка от самого ВК (неверный токен, нет доступа и т.д.)
+        echo json_encode(["status" => "error", "message" => "VK Error: " . $result['error']['error_msg']]);
+    } else {
+        echo json_encode(["status" => "success", "message" => "Заявка отправлена"]);
+    }
+}
