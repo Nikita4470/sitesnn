@@ -1,12 +1,4 @@
 <?php
-$data = json_decode(file_get_contents('php://input'));
-
-// Проверяем тип события
-if ($data->type === 'confirmation') {
-    // ВАЖНО: Верни именно ту строку, которую требует ВК
-    echo "e53c1e7f"; 
-    exit;
-}
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: POST");
@@ -39,9 +31,19 @@ if (file_exists($envFile)) {
 // Теперь достаем переменные точно так же, как в других языках!
 $token   = $_ENV['VK_TOKEN'] ?? getenv('VK_TOKEN');
 $peer_id = $_ENV['VK_PEER_ID'] ?? getenv('VK_PEER_ID');
+$secret_key = $_ENV['VK_SECRET_KEY'] ?? getenv('VK_SECRET_KEY');
+
+$data = json_decode(file_get_contents('php://input'));
+if ($data->secret !== $secretKey) {
+    die("Попытка взлома! Неверный секретный ключ.");
+}
+if ($data->type === 'confirmation') {
+    echo "e53c1e7f";
+    exit;
+}
 
 // Проверяем, что секреты загрузились
-if (!$token || !$peer_id) {
+if (!$token || !$peer_id !$secret_key) {
     echo json_encode(["status" => "error", "message" => "Server configuration missing"]);
     exit(1);
 }
