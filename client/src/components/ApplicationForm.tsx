@@ -12,36 +12,36 @@ export function ApplicationForm({ compact = false }: Props) {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const form = event.currentTarget
+    
+    // Собираем данные из полей формы: name, contact, comment
     const values = Object.fromEntries(new FormData(form).entries())
     setSending(true)
     setSubmitError('')
 
     try {
-      const response = await fetch('/api/lead', {
+      // 1. МЕНЯЕМ URL на наш PHP скрипт
+      const response = await fetch('/send.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...values, page: window.location.href }),
+        // Передаем name, phone (переименуем contact в phone для PHP) и комментарий
+        body: JSON.stringify({ 
+          name: values.name, 
+          phone: values.contact, // Наш PHP ждет ключ 'phone'
+          comment: values.comment 
+        }),
       })
 
-      // Сначала пытаемся прочитать JSON от сервера, что бы он ни ответил
       const result = await response.json().catch(() => null)
 
-      // Если бэкенд на Go ответил, что мы спамим (код 429)
-      if (response.status === 429) {
-        setSubmitError(result?.message || 'Слишком много запросов. Подождите минуту.')
-        return // Прерываем функцию, в общий catch не летим
-      }
-
-      // Если любая другая ошибка (400, 422, 502)
-      if (!response.ok || !result?.ok) {
+      // 2. МЕНЯЕМ ПРОВЕРКУ: PHP возвращает ["status" => "success"]
+      if (!response.ok || result?.status !== 'success') {
         throw new Error('lead_delivery_failed')
       }
 
-      // Если всё зашибись (Статус 200 ОК)
+      // Если всё зашибись
       setSent(true)
       form.reset()
     } catch {
-      // Сюда падаем только при жестких сетевых ошибках (например, сервак упал или инета нет)
       setSubmitError('Не удалось отправить заявку. Попробуйте ещё раз или напишите нам на')
     } finally {
       setSending(false)

@@ -1,0 +1,70 @@
+.banner {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  max-width: 600px;
+  background-color: #1a1a1a; /* Темный фон под стать консоли/коду */
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 9999; /* Чтобы точно было поверх всего */
+  animation: slideUp 0.4s ease-out;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.content p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #ccc;
+}
+
+.link {
+  color: #a3e635; /* Твой lime цвет */
+  text-decoration: underline;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
+/* Кнопка сжата, чтобы не ломать флекс */
+.content button {
+  white-space: nowrap;
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+/* Анимация плавного выезда снизу */
+@keyframes slideUp {
+  from {
+    transform: translate(-50%, 100px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+/* Мобильная адаптация */
+@media (max-width: 600px) {
+  .content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .content button {
+    width: 100%;
+  }
+}

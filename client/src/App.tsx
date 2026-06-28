@@ -5,6 +5,7 @@ import { HomePage } from './pages/HomePage'
 import { ProductPage } from './pages/ProductPage'
 import { productPages } from './data/content'
 import { PolicyPage } from './pages/PolicyPage'
+import { CookieBanner } from './components/CookieBanner'
 
 const SITE_URL = 'https://sitesnn.ru'
 const SITE_NAME = 'SITESNN'
@@ -165,6 +166,7 @@ export default function App() {
         ))}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <CookieBanner />
     </Layout>
   )
 }

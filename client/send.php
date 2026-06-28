@@ -39,11 +39,11 @@ if (!$token || !$peer_id) {
 }
 
 // Читаем JSON от Реакта
-$input = json_decode(file_get_contents("php://input"), true);
-$name  = isset($input['name'])  ? trim($input['name'])  : 'Не указано';
-$phone = isset($input['phone']) ? trim($input['phone']) : 'Не указано';
+$name    = isset($input['name'])    ? trim($input['name'])    : 'Не указано';
+$phone   = isset($input['phone'])   ? trim($input['phone'])   : 'Не указано';
+$comment = isset($input['comment']) ? trim($input['comment']) : 'Нет комментария'; // Добавили
 
-$message = "🚀 Новая заявка с лендинга!\n\n👤 Имя: " . $name . "\n📞 Телефон: " . $phone;
+$message = "🚀 Новая заявка с лендинга!\n\n👤 Имя: " . $name . "\n📞 Контакты: " . $phone . "\n💬 Комментарий: " . $comment;
 
 $params = [
     'v'            => '5.131',
