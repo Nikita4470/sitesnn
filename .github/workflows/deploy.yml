@@ -18,12 +18,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-size: 20
-          cache: 'npm' # ускоряет последующие сборки
+          node-version: 22
+          cache: 'npm'
+          cache-dependency-path: 'client/package-lock.json' # Укажи путь, если папка вложена
 
       # 3. Устанавливаем зависимости и собираем фронтенд
       - name: Install dependencies and Build Frontend
         run: |
+          cd client # Заходим в папку перед сборкой
           npm install
           npm run build
 
