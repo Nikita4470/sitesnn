@@ -61,20 +61,27 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
+            # Переходим в рабочую папку (замени путь, если у reg.ru он другой, например ~/www/...)
             cd ~/apps/sitesnn-bot
-            # Выпрямляем структуру: переносим dist из client/dist в корень
+            
+            # 1. Тушим старый процесс бэкенда, если он запущен
+            PID=$(pkill -f vk-bot-app || true)
+            
+            # 2. Выпрямляем структуру папок из репозитория
             if [ -d "client/dist" ]; then
               rm -rf dist
               mv client/dist ./dist
               rm -rf client
             fi
-            # Вытаскиваем бинарник из папки server в корень
             if [ -f "server/vk-bot-app" ]; then
               mv server/vk-bot-app ./vk-bot-app
               rm -rf server
             fi
-            # Даем права на запуск бинарника
+            
+            # 3. Даем права на запуск
             chmod +x vk-bot-app
             
-            # Перезапускаем процесс (ниже разберем, как упаковать его в systemd)
-            sudo systemctl restart sitesnn-bot || true
+            # 4. Запускаем Go-сервер в фоне без sudo
+            nohup ./vk-bot-app > server.log 2>&1 &
+            
+            echo "Бэкенд успешно перезапущен в фоне!"
