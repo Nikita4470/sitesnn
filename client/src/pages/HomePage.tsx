@@ -4,6 +4,7 @@ import { ProductCard } from '../components/ProductCard'
 import { SectionTitle } from '../components/SectionTitle'
 import { advantages, productCards, services, whyItems } from '../data/content'
 import styles from './HomePage.module.css'
+import systemsHero from '../../assets/systems-hero.png';
 
 export function HomePage() {
   return (
@@ -11,7 +12,7 @@ export function HomePage() {
       <section className={styles.hero}>
         <div className={`container ${styles.heroInner}`}>
           <div className={styles.heroArt} aria-hidden="true">
-            <img src="./assets/systems-hero.png" alt="Цифровая система SITESNN для автоматизации бизнеса" />
+            <img src={systemsHero} alt="Цифровая система SITESNN для автоматизации бизнеса" />
             <span className={styles.artLabel}>SYSTEMS / WEB / MOBILE</span>
             <span className={styles.artStatus}><i /> Система online</span>
           </div>
@@ -75,7 +76,7 @@ export function HomePage() {
         <div className="container">
           <div className={styles.solutionHeading}>
             <SectionTitle light eyebrow="04 / ПРОДУКТЫ" title="Наши решения" text="Можно начать с базовой версии и развивать систему вместе с бизнесом." />
-            <Link to="/avtomatizirovannyi-site">Как выбрать решение? ↗</Link>
+            <a href="#contact">Как выбрать решение? ↗</a>
           </div>
           <div className={styles.productGrid}>
             {productCards.map((product) => <ProductCard key={product.slug} {...product} title={product.navTitle} />)}
