@@ -6,7 +6,23 @@ header("Content-Type: application/json");
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') exit(0);
 
-// ... (твой код загрузки .env остается без изменений) ...
+$envFile = __DIR__ . '/.env';
+if (file_exists($envFile)) {
+    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        // Игнорируем комментарии
+        if (strpos(trim($line), '#') === 0) continue;
+        
+        // Разбиваем строку на КЛЮЧ=ЗНАЧЕНИЕ
+        list($name, $value) = explode('=', $line, 2);
+        $name = trim($name);
+        $value = trim($value);
+        
+        // Записываем в окружение
+        $_ENV[$name] = $value;
+        putenv("{$name}={$value}");
+    }
+}
 
 $token   = $_ENV['VK_TOKEN'] ?? getenv('VK_TOKEN');
 $peer_id = $_ENV['VK_PEER_ID'] ?? getenv('VK_PEER_ID');
