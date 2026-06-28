@@ -45,7 +45,7 @@ export function Layout({ children }: PropsWithChildren) {
           <div className={styles.footerContact}>
             <span>Новый проект</span>
             <a href="mailto:hello@sitesnn.ru">hello@sitesnn.ru</a>
-            <a href="#contact">Оставить заявку ↗</a>
+            <a href="/#contact">Оставить заявку ↗</a>
             <NavLink
               to="/policy"
               target="_blank"
