@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /send.php
+Disallow: /.env
+Disallow: /debug.log
+Disallow: /server/
+
+Sitemap: https://sitesnn.ru/sitemap.xml

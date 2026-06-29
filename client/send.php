@@ -45,12 +45,27 @@ $name    = isset($data->name)    ? trim($data->name)    : 'Не указано';
 $phone   = isset($data->phone)   ? trim($data->phone)   : 'Не указано';
 $comment = isset($data->comment) ? trim($data->comment) : 'Нет комментария';
 
+if (mb_strlen($name) > 40 || mb_strlen($phone) > 40 || mb_strlen($comment) > 220) {
+    echo json_encode(["status" => "error", "message" => "Too long message"]);
+    exit;
+}
+if (empty($name) || empty($phone) || empty($comment)) {
+    echo json_encode(["status" => "error", "message" => "Empty form"]);
+    exit;
+}
+
 if (!$token || !$peer_id) {
     echo json_encode(["status" => "error", "message" => "Server config missing"]);
     exit;
 }
 
-$message = "🚀 Новая заявка!\n\n👤 Имя: $name\n📞 Контакты: $phone\n💬 Коммент: $comment";
+$message = "🔔 *Новая заявка!*" . "\n" .
+           "━━━━━━━━━━━━━━" . "\n" .
+           "👤 Имя: " . $name . "\n" .
+           "📞 Тел: " . $phone . "\n" .
+           "💬 Комм: " . $comment . "\n" .
+           "━━━━━━━━━━━━━━" . "\n" .
+           "📅 " . date("d.m.Y H:i");
 
 $params = [
     'v'            => '5.131',

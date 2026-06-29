@@ -33,16 +33,19 @@ export function ApplicationForm({ compact = false }: Props) {
 
       const result = await response.json().catch(() => null)
 
-      // 2. МЕНЯЕМ ПРОВЕРКУ: PHP возвращает ["status" => "success"]
-      if (!response.ok || result?.status !== 'success') {
-        throw new Error('lead_delivery_failed')
+      if (!response.ok || result.status === 'error') {
+        throw new Error(result.message || 'Ошибка сервера');
       }
 
       // Если всё зашибись
       setSent(true)
       form.reset()
-    } catch {
-      setSubmitError('Не удалось отправить заявку. Попробуйте ещё раз или напишите нам на')
+    } catch (error) {
+      if (error instanceof Error) {
+        setSubmitError(error.message);
+      } else {
+        setSubmitError('Произошла неизвестная ошибка');
+      }
     } finally {
       setSending(false)
     }
