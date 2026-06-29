@@ -45,12 +45,12 @@ $name    = isset($data->name)    ? trim($data->name)    : 'Не указано';
 $phone   = isset($data->phone)   ? trim($data->phone)   : 'Не указано';
 $comment = isset($data->comment) ? trim($data->comment) : 'Нет комментария';
 
-if (mb_strlen($name) > 40 || mb_strlen($phone) > 40 || mb_strlen($comment) > 220) {
-    echo json_encode(["status" => "error", "message" => "Too long message"]);
+if (mb_strlen($name) > 40 || mb_strlen($phone) > 40 || mb_strlen($comment) > 800) {
+    echo json_encode(["status" => "error", "message" => "Слишком длинное сообщение"]);
     exit;
 }
 if (empty($name) || empty($phone) || empty($comment)) {
-    echo json_encode(["status" => "error", "message" => "Empty form"]);
+    echo json_encode(["status" => "error", "message" => "Пустая форма"]);
     exit;
 }
 
