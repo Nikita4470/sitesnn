@@ -1,13 +1,21 @@
+# Зависимости
 node_modules/
+
+# Результаты сборки
 dist/
 *.tsbuildinfo
-vite.config.js
-vite.config.d.ts
-server/
 
+# Конфиги (убрали vite.config.js, он должен быть в репозитории!)
+# Если есть секретные конфиги, лучше игнорировать конкретные файлы
+
+# Переменные окружения (секреты)
 .env
 .env.*
 !.env.example
 
+# Системные файлы
 Thumbs.db
 .DS_Store
+
+# Твой PHP бэкенд (если не хочешь игнорировать весь server)
+# !server/send.php
